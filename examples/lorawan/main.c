@@ -160,10 +160,14 @@ int main(void)
          * keys.
          */
         puts("Starting join procedure");
-        if (semtech_loramac_join(&loramac, LORAMAC_JOIN_OTAA) != SEMTECH_LORAMAC_JOIN_SUCCEEDED) {
-            puts("Join procedure failed");
-            return 1;
+        uint8_t result = 100;
+        do
+        {
+            result = semtech_loramac_join(&loramac, LORAMAC_JOIN_OTAA);
+            printf("Join procedure failed - %d\n", result);
         }
+        while (result != SEMTECH_LORAMAC_JOIN_SUCCEEDED);
+        puts("Join procedure succeeded");
 
 #ifdef MODULE_PERIPH_EEPROM
         /* Save current MAC state to EEPROM */
