@@ -20,6 +20,7 @@
  */
 
 #include <stdio.h>
+#include "periph/gpio.h"
 
 int main(void)
 {
@@ -27,6 +28,10 @@ int main(void)
 
     printf("You are running RIOT on a(n) %s board.\n", RIOT_BOARD);
     printf("This board features a(n) %s MCU.\n", RIOT_MCU);
+
+    gpio_t const pin = GPIO_PIN(0, 4);
+    gpio_init(pin, GPIO_OUT);
+    gpio_set(pin);
 
     return 0;
 }
